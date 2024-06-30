@@ -130,7 +130,7 @@ func initDB() {
 		&models.Mesa{}, &models.Comite{}, &models.Delegado{}, &models.Mocion{}, &models.Voluntario{}, &models.Charla{},
 		&models.Podio{}, &models.Premios{})
 
-	err := runSQLFile("drop.sql")
+	err = runSQLFile("drop.sql")
 	if err != nil {
 		fmt.Println("Error eliminando el contenido antiguo")
 	}
@@ -138,7 +138,7 @@ func initDB() {
 	// Run SQL commands from file
 	err = runSQLFile("init.sql")
 	if err != nil {
-		log.Printf("Error running SQL: %v", err)
+		log.Printf("Error insertando datos SQL: %v", err)
 	}
 }
 

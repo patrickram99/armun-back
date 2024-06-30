@@ -71,11 +71,11 @@ INSERT INTO secretariados (nombre, apellido, telefono, correo, rol) VALUES
 
 -- Insert Mociones
 INSERT INTO mocions (topico, tiempo_del, cant_del, tiempo_total, sesion, fecha, delegado_id, comite_id) VALUES 
-('Desarme Nuclear', 10, 5, 50, 'Sesión 1', '2024-06-01', 1, 1),
-('Cambio Climático', 15, 6, 90, 'Sesión 2', '2024-06-02', 2, 2),
-('Derechos Humanos', 12, 4, 48, 'Sesión 1', '2024-06-03', 3, 3),
-('Economía Global', 8, 3, 24, 'Sesión 2', '2024-06-04', 4, 4),
-('Igualdad de Género', 20, 7, 140, 'Sesión 1', '2024-06-05', 5, 5);
+('Politicas internaciones de legislación nuclear', 10, 5, 50, 'Sesión 1', '2024-06-01', 1, 1),
+('ODS numero 17', 15, 6, 90, 'Sesión 2', '2024-06-02', 2, 2),
+('Revisitar la Declaracion Universal de Derechos Humanos', 12, 4, 48, 'Sesión 1', '2024-06-03', 3, 3),
+('Analizar facultades de la OIT', 8, 3, 24, 'Sesión 2', '2024-06-04', 4, 4),
+('Evaluar lenguaje inclusivo', 20, 7, 140, 'Sesión 1', '2024-06-05', 5, 5);
 
 -- Insert Voluntarios
 INSERT INTO voluntarios (nombre, apellido, telefono, secretariado_id) VALUES 
@@ -106,6 +106,6 @@ INSERT INTO premios (nombre, mesa_id) VALUES
 -- ('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01', '09:00:00'),
 -- ('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02', '10:00:00');
 
--- INSERT INTO charlas (sesion, ponente, tema, delegado_id, fecha, hora) VALUES
--- ('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01', '09:00:00'),
--- ('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02', '10:00:00');
+INSERT INTO charlas (sesion, ponente, tema, delegado_id, fecha) VALUES
+('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01'),
+('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02');
