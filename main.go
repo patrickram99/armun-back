@@ -35,7 +35,7 @@ func main() {
 
 	// Custom SQL
 	r.GET("/voluntarios/:id", func(c *gin.Context) {
-		executeSQL(c, "scripts/ejm-1.sql")
+		executeSQL(c, "voluntarios.sql")
 	})
 
 	log.Fatal(r.Run(":8080"))

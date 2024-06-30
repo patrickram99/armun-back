@@ -22,6 +22,7 @@ WORKDIR /root/
 COPY --from=builder /app/main .
 COPY init.sql .
 COPY drop.sql .
+COPY voluntarios.sql .
 EXPOSE 8080
 
 # Command to run the executable
