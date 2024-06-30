@@ -102,6 +102,10 @@ INSERT INTO premios (nombre, mesa_id) VALUES
 ('Mejor Discurso', 5);
 
 -- Insert Charlas
-INSERT INTO charlas (sesion, ponente, tema, delegado_id, fecha, hora) VALUES 
-('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01', '09:00:00'),
-('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02', '10:00:00');
+-- INSERT INTO charlas (sesion, ponente, tema, delegado_id, fecha, hora) VALUES 
+-- ('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01', '09:00:00'),
+-- ('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02', '10:00:00');
+
+-- INSERT INTO charlas (sesion, ponente, tema, delegado_id, fecha, hora) VALUES
+-- ('Sesión 1', 'Juan Perez', 'La importancia del desarme nuclear', 1, '2024-06-01', '09:00:00'),
+-- ('Sesión 2', 'Ana Garcia', 'El cambio climático y su impacto', 2, '2024-06-02', '10:00:00');

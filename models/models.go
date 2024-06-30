@@ -107,7 +107,7 @@ type Charla struct {
 	Tema       string `gorm:"size:255"`
 	DelegadoID uint
 	Fecha      time.Time
-	Hora       time.Time
+	Hora       time.Time `gorm:"type:time"` // Explicitly tell GORM that this is a 'TIME' SQL type
 	Delegado   Delegado
 }
 
