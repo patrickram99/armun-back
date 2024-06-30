@@ -22,6 +22,82 @@ var (
 	err error
 )
 
+func main() {
+	initDB()
+
+	r := gin.Default()
+
+	r.GET("/mociones", getAllMociones)
+	r.GET("/mociones/:id", getMocionByID)
+	r.POST("/mociones", createMocion)
+	r.PUT("/mociones/:id", updateMocion)
+	r.DELETE("/mociones/:id", deleteMocion)
+
+	// Custom SQL
+	r.GET("/voluntarios/:id", func(c *gin.Context) {
+		executeSQL(c, "scripts/ejm-1.sql")
+	})
+
+	log.Fatal(r.Run(":8080"))
+}
+
+func executeCustomSQL(filename string, param string) ([]map[string]interface{}, error) {
+	dat, err := os.ReadFile(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	rows, err := db.Raw(string(dat), param).Rows()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	columns, err := rows.Columns()
+	if err != nil {
+		return nil, err
+	}
+
+	results := []map[string]interface{}{}
+	for rows.Next() {
+		values := make([]interface{}, len(columns))
+		valuePtrs := make([]interface{}, len(columns))
+		for i := range columns {
+			valuePtrs[i] = &values[i]
+		}
+
+		if err := rows.Scan(valuePtrs...); err != nil {
+			return nil, err
+		}
+
+		row := make(map[string]interface{})
+		for i, col := range columns {
+			var v interface{}
+			val := values[i]
+			b, ok := val.([]byte)
+			if ok {
+				v = string(b)
+			} else {
+				v = val
+			}
+			row[col] = v
+		}
+		results = append(results, row)
+	}
+
+	return results, nil
+}
+
+func executeSQL(c *gin.Context, file string) {
+	id := c.Param("id")
+	results, err := executeCustomSQL(file, id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, results)
+}
+
 func initDB() {
 	host := os.Getenv("DB_HOST")
 	if host == "" {
@@ -54,10 +130,15 @@ func initDB() {
 		&models.Mesa{}, &models.Comite{}, &models.Delegado{}, &models.Mocion{}, &models.Voluntario{}, &models.Charla{},
 		&models.Podio{}, &models.Premios{})
 
+	err := runSQLFile("drop.sql")
+	if err != nil {
+		fmt.Println("Error eliminando el contenido antiguo")
+	}
+
 	// Run SQL commands from file
 	err = runSQLFile("init.sql")
 	if err != nil {
-		log.Printf("Error running SQL file: %v", err)
+		log.Printf("Error running SQL: %v", err)
 	}
 }
 
@@ -93,20 +174,6 @@ func runSQLFile(filename string) error {
 	}
 
 	return nil
-}
-
-func main() {
-	initDB()
-
-	r := gin.Default()
-
-	r.GET("/mociones", getAllMociones)
-	r.GET("/mociones/:id", getMocionByID)
-	r.POST("/mociones", createMocion)
-	r.PUT("/mociones/:id", updateMocion)
-	r.DELETE("/mociones/:id", deleteMocion)
-
-	log.Fatal(r.Run(":8080"))
 }
 
 func getAllMociones(c *gin.Context) {
